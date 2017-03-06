@@ -11,60 +11,74 @@ function jBreak()
     echo "<br><br><hr><br>";
 }
 
-// Local MySQL for development:
+// Local MySQL for development environment:
 
-$hostname = '127.0.0.1';
-$username = 'root';
-$password = '';
-$databaseName = 'alphacrm';
-
+$hostname = '127.0.0.1'; $username = 'root'; $password = ''; $databaseName = 'alphacrm';
+$randomInt = rand() * rand(0, 255); jBreak();
+$table = "tdesigners"; $query = '';
 $link = mysqli_connect($hostname, $username, $password, $databaseName);
 
+if(array_key_exists('email', $_POST) OR array_key_exists('password', $_POST)) {
+    $email = mysqli_real_escape_string($link, $_POST['email']);
+
+    if($email == '') {
+        echo '<h4>Email required!</h4>';
+    } else if ($_POST['password'] == '') {
+        echo '<h4>Password required!</h4>';
+    } else {
+        // $query = "select id from $table where email = '".mysqli_real_escape_string($link, $_POST['email'])."'";
+        $query = "select id from $table where email = '$email'";
+
+        $result = mysqli_query($link, $query);
+
+        // if query returns a row/record the email already exists in the database.
+        if(mysqli_num_rows($result) > 0) {
+            echo '<h4>That email is already taken.</h4>';
+        }
+    }
+}
 
 if (mysqli_connect_error()) {
     echo 'database connection failed';
     die ('<br><br> Failed to connect to remote MySQL database');
 }
 
-$randomInt = rand() * rand(0, 255); // generate id
-//echo $randomInt;
-jBreak();
+?>
 
-$table = "tdesigners";
-$query = '';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>www.julius3d.com</title>
 
-/*
-//-- prior sql query practice:
-$query = "INSERT INTO tdesigners (id, email, password) VALUES($randomInt, 'romulus@julius3d.com', 'abc123')";
-$query = "update $table set email = 'augustus@julius3d.com' where id = 0 limit 1";
-$query = "update $table set password = 'abc123' where email = 'augustus@julius3d.com' limit 1";
-$query = "select * from $table where email like '%julius3d.com'";
-$query = "select * from $table where email like '%j%'";
-$query = "select * from $table where id < 10";
-$query = 'select * from $table where id = 0';
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-*/
-
-echo $query;
-jBreak();
-
-$query = "select Skills from $table where Skills like '%a%' and id < 10";
-
-if ($result = mysqli_query($link, $query)) {
-    // $row = mysqli_fetch_array($result)
-
-    while ($row = mysqli_fetch_array($result)) {
-        print_r($row);
-    }
-
-    jBreak();
-} else {
-    echo 'failed query';
-}
+</head>
 
 
+<body>
+
+<div class="container">
+    <h1>Ello World ^_^/
+        <small>~Julius Alvarado :)</small>
+    </h1>
+
+    <br>
+
+    <!-- html coding begin: -->
+
+    <form action="" method="post">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Send it!">
+    </form>
+
+</div>
+
+</body>
+</html>
 
 
-
-
-//
