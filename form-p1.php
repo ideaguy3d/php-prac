@@ -8,22 +8,21 @@
 
 // this php form code doesn't quite work. It mostly works but doesn't properly insert error/success messages
 
-$jhaFormError = ''; $mailError = ''; $successMessage = '';
+$jhaFormError = '';
+$mailError = '';
+$successMessage = '';
 
-function jBreak()
-{
+function jBreak() {
     echo "<br><br><hr><br>";
 }
 
-function add2error($sub)
-{
+function add2error($sub) {
     global $jhaFormError;
     // echo '<br>add2error() line 17ish... add2error() var paramter ='.$sub;
     $jhaFormError .= 'ERROR: ' . $sub . ' is required ! <br>';
 }
 
-function jhaValidation()
-{
+function jhaValidation() {
     global $jhaFormError;
     global $mailError;
     global $successMessage;
@@ -51,16 +50,14 @@ function jhaValidation()
 
     if ($jhaFormError != '') { // error is !empty then there has been an validation error.
         $jhaFormError .= '<div class="alert alert-danger" role="alert">' . $jhaFormError . '</div>';
-    }
-
-    // Send email code:
+    } // Send email code:
     else {
         $emailTo = 'javascript.uiux@gmail.com';
         $subject = $_POST['subject'];
         $content = $_POST['content'];
-        $headers = 'From: '.$_POST['email'];
+        $headers = 'From: ' . $_POST['email'];
 
-        if(mail($emailTo, $subject, $content, $headers)) {
+        if (mail($emailTo, $subject, $content, $headers)) {
             $successMessage = '<div class="alert alert-success" role="alert">Form submitted successfully. </div>';
         } else {
             $mailError = '<div class="alert alert-danger" role="alert">The email failed.</div>';
@@ -107,7 +104,7 @@ if ($_POST) {
 
     <h1>Contact Us Now</h1>
 
-    <div id="error"> <? echo $jhaFormError.$successMessage.$mailError; ?> </div>
+    <div id="error"> <? echo $jhaFormError . $successMessage . $mailError; ?> </div>
 
     <form method="post">
 
@@ -161,7 +158,7 @@ if ($_POST) {
 
 <script type="text/javascript">
 
-    (function($){
+    (function ($) {
         $("form").submit(function (e) {
 
             var error = "";
