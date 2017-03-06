@@ -9,24 +9,40 @@
 //include('../j1-include.php');
 
 // echo file_get_contents('https://www.ecowebhosting.co.uk');
-$weather = '';
-$error = '';
-$city = '';
 
-if ($_GET['city']) {
+$weather = ''; $error = ''; $city = ''; $exists = '';
+
+
+if (array_key_exists('city', $_GET)) {
     $city = str_replace(" ", "", $_GET['city']);
+    $urlWeather = 'http://www.weather-forecast.com/locations/'.$city.'/forecasts/latest';
+    $file_headers = @get_headers($urlWeather);
 
+    if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+        $exists = false;
+        $error = 'City not found';
+    } else {
+        $forecastPage = file_get_contents($urlWeather);
 
-    $forecastPage = file_get_contents('http://www.weather-forecast.com/locations/'.$city.'/forecasts/latest');
+        $page1Array = explode(
+            '3 Day Weather Forecast Summary:</b><span class="read-more-small"><span class="read-more-content"> <span class="phrase">',
+            $forecastPage
+        );
 
-    $page1Array = explode(
-        '3 Day Weather Forecast Summary:</b><span class="read-more-small"><span class="read-more-content"> <span class="phrase">',
-        $forecastPage
-    );
+        if(sizeof($page1Array) > 1) {
+            $page2Array = explode('</span></span></span>', $page1Array[1]);
 
-    $page2Array = explode('</span></span></span>', $page1Array[1]);
+            if(sizeof($page2Array) > 1) {
+                $weather = $page2Array[0];
+            } else {
+                $error = 'There was a scraping error. Please contact the developer.';
+            }
 
-    $weather = $page2Array[0];
+        } else {
+            $error = 'There was a scraping error. Please contact the developer.';
+        }
+    }
+
 }
 
 ?> <!-- END OF: php block -->
@@ -101,7 +117,8 @@ if ($_GET['city']) {
                     <fieldset class="form-group">
                         <label for="city"></label>
                         <input type="text" class="form-control" id="city" name="city"
-                               placeholder="e.g. San Jose, San Francisco, Palo Alto...">
+                               placeholder="e.g. San Jose, San Francisco, Palo Alto..."
+                                value="<?php if(array_key_exists('city', $_GET)) { echo $_GET['city']; } ?>">
                     </fieldset>
 
                     <button type="submit" class="btn btn-lg btn-info">Check it!</button>
@@ -118,6 +135,8 @@ if ($_GET['city']) {
                         '</strong> </h4><div class="alert alert-success" role="alert">
                         ' . $weather .
                         '</div>';
+                } else if ($error) {
+                    echo $error;
                 }
                 ?>
             </div>
