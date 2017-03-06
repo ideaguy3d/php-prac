@@ -2,9 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: Julius Alvarado
- * Date: 3/2/2017
- * Time: 10:20 PM
+ * Date: 3/4/2017
+ * Time: 9:52 PM
  */
+
+// this php form code doesn't quite work. It mostly works but doesn't properly insert error/success messages
 
 $jhaFormError = ''; $mailError = ''; $successMessage = '';
 
