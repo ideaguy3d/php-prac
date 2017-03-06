@@ -6,8 +6,6 @@
  * Time: 8:12 PM
  */
 
-//include('../j1-include.php');
-
 // echo file_get_contents('https://www.ecowebhosting.co.uk');
 
 $weather = ''; $error = ''; $city = ''; $exists = '';
@@ -68,6 +66,11 @@ if (array_key_exists('city', $_GET)) {
             background-position: top;
             background-size: cover;
             min-height: 640px;
+        }
+
+        footer {
+            background-color: #ececec;
+            padding-top: 16px;
         }
 
         @media screen and (max-height: 500px ) {
@@ -147,39 +150,22 @@ if (array_key_exists('city', $_GET)) {
 
 
 <!-- contact us section -->
-<section class="container">
-    <br>
-    <br>
+<?php
+include('../form-p1.php');
+?>
 
-    <h1>Contact the developer of this site:</h1>
+<br>
 
-    <div id="error"></div>
-
-    <form method="post">
-        <!-- email -->
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                   placeholder="Enter email">
-        </div>
-
-        <!-- password -->
-        <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
-        </div>
-
-        <!-- textarea -->
-        <div class="form-group">
-            <label for="content">Description</label>
-            <textarea class="form-control" id="content" name="content" rows="3" placeholder="Description"></textarea>
-        </div>
-
-        <!-- submit button -->
-        <button id="submit" type="submit" class="btn btn-primary">Send it</button>
-    </form>
-</section>
-
+<footer class="footer j-center-block">
+    <div class="container">
+        <h1>Coded w/<3 by:<a href="http://julius3d.com"> Julius Alvarado</a></h1>
+        <h2>
+            My <a href="https://linkedin.com/in/juliusalvarado">LinkedIn</a>
+            & <a href="https://github.com/ideaguy3d">Github</a>
+        </h2>
+        <span class="text-muted"> &copy; 2017 Julius Alvarado </span>
+    </div>
+</footer>
 
 <!-- jQuery first, then Tether, then Bootstrap JS. -->
 <!--<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
@@ -191,14 +177,11 @@ if (array_key_exists('city', $_GET)) {
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
 
+
 <script type="text/javascript">
 
     (function ($) {
-        // JavaScript code here:
-
-        $(document).ready(function() {
-
-        });
+        // javascript code
     }(jQuery));
 
 </script>

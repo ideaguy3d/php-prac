@@ -40,7 +40,7 @@ $myName = $myArray;
 
 //-- foreach loop:
 foreach ($myName as $key => $value) {
-    echo "my names are " . $key . " and " . $value . "<br>";
+    echo "my names are ".$key . " and " . $value . "<br>";
 }
 
 jBreak();
