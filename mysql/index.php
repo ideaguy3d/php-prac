@@ -20,6 +20,7 @@ $link = mysqli_connect($hostname, $username, $password, $databaseName);
 
 if(array_key_exists('email', $_POST) OR array_key_exists('password', $_POST)) {
     $email = mysqli_real_escape_string($link, $_POST['email']);
+    $password = mysqli_real_escape_string($link, $_POST['password']);
 
     if($email == '') {
         echo '<h4>Email required!</h4>';
@@ -31,9 +32,15 @@ if(array_key_exists('email', $_POST) OR array_key_exists('password', $_POST)) {
 
         $result = mysqli_query($link, $query);
 
-        // if query returns a row/record the email already exists in the database.
-        if(mysqli_num_rows($result) > 0) {
+        if(mysqli_num_rows($result) > 0) { // if query returns a row/record the email already exists in the database.
             echo '<h4>That email is already taken.</h4>';
+        } else { // there are no rows which means the email is not taken.
+            $query = "insert into $table (id, email, password) VALUES ($randomInt, '$email', '$password')";
+            if(mysqli_query($link, $query)) {
+                echo '<h4>Successfully signed you up! (:</h4>';
+            } else {
+                echo '<h4>ERROR: unable to sign you up :(</h4>';
+            }
         }
     }
 }
