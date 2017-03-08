@@ -18,15 +18,11 @@ class CountryRepository
         $countries = array();
         array_push(
             $countries,
-            new Country('United States', 'us',
-                array(new State('California'), new State('Texas'))
-            )
+            new Country('America', 'us', array(new State('California'), new State('Texas')))
         );
         array_push(
             $countries,
-            new Country('Canada', 'ca',
-                array(new State('Ontario'), new State('Quebec'))
-            )
+            new Country('Canada', 'ca', array(new State('Ontario'), new State('Quebec')))
         );
         array_push(
             $countries,
@@ -36,7 +32,7 @@ class CountryRepository
     }
 
     public static function getCountries() {
-        if(count(self::$countries) == 0) {
+        if(count(self::$countries) === 0) {
             self::init();
         }
         return self::$countries;

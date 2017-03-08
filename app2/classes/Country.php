@@ -13,7 +13,7 @@ class Country {
     public function __construct($name = '', $code = '', $states = array()) {
         // TODO: implement validation.
         $this->name = $name;
-        $this->name = $code;
+        $this->code = $code;
         $this->states = $states;
     }
 }

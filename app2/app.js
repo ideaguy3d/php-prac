@@ -1,28 +1,28 @@
 /**
  * Created by Julius Alvarado on 3/7/2017.
  */
-(function(){
+(function () {
     var app = angular.module('app', []);
 
-    app.controller ('CountryCtrl', [function(){
-        var vm = this;
+    app.factory('jDataService', ['$http',
+        function ($http) {
+            var baseUrl = 'services';
 
-        vm.countries = [
-            {
-                name: 'Germany',
-                code: 'de',
-                states: [{ name: 'Bavaria'}, {name: 'Berlin'}]
-            },
-            {
-                name: 'United States',
-                code: 'us',
-                states: [{ name: 'California'}, {name: 'Maryland'}]
-            },
-            {
-                name: 'Luxembourg',
-                code: 'lu'
-            }];
+            return {
+                getCountries: $http.get(baseUrl+'/getCountries.php')
+            }
+        }
+    ]);
 
+    app.controller('CountryCtrl', ['jDataService',
+        function (jDataService) {
+            var vm = this;
+            vm.countries = '';
 
-    }]);
+            jDataService.getCountries.then(function (res) {
+                vm.countries = res.data;
+                console.log(res.data);
+            })
+        }
+    ]);
 }());
