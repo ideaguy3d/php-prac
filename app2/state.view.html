@@ -1,0 +1,13 @@
+<div class="jumbotron jcol">
+	<h1>{{ stateCtrl.params.countryCode }}</h1>
+	<ul ng-show="stateCtrl.states.length > 0">
+		<li ng-repeat="s in stateCtrl.states">{{ s.name }}</li>
+	</ul>
+	<input type="text" name="state" ng-model="stateCtrl.newState">
+	<br>
+	<a href="" ng-click="stateCtrl.addStateTo()">
+		Add State {{ stateCtrl.newState }}
+	</a>
+	<br>
+	<button><a href="#!/">back</a></button>
+</div>

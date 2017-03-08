@@ -3,32 +3,45 @@
 <head>
 	<meta charset="UTF-8">
 	<title>www.julius3d.com</title>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+	      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	
+	<style>
+		.jcol {
+			float: left;
+			width: 50%;
+		}
+		.btn {
+			cursor: pointer;
+		}
+	</style>
 </head>
 
 
 <body ng-app="app">
 
-<h1>2 + 2 = {{ 4*4 }}</h1>
+<section class="container">
+	<h1>2 + 2 = {{ 4*4 }}</h1>
+	
+	<div class="jcol" ng-controller="CountryCtrl as countryCtrl">
+		<ul>
+			<li ng-repeat="c in countryCtrl.countries">
+				<img src="./images/{{ c.code }}.png" alt="img">
+				<a class="btn btn-info btn-sm" ng-href="#!/states/{{ c.code }}">
+					Country: {{ c.name }}
+				</a>
+			</li>
+		</ul>
+	</div>
+</section>
 
-<div ng-controller="CountryCtrl as countryCtrl">
-	<ul>
-		<li ng-repeat="c in countryCtrl.countries">
-			<img src="./images/{{ c.code }}.png" alt="img">
-			Country: {{ c.name }}
-			
-			<div ng-controller="StateCtrl as stateCtrl">
-				<ul ng-show="c.states.length > 0">
-					<li ng-repeat="s in c.states">{{ s.name }}</li>
-				</ul>
-				<input type="text" name="state" ng-model="stateCtrl.newState">
-				<a href="" ng-click="stateCtrl.addStateTo(c)">Add State {{ stateCtrl.newState }}</a>
-			</div>
-		</li>
-	</ul>
-</div>
+<div class='container' ng-view=""></div>
 
 <!-- Vender Scripts -->
 <script src="bower_components/angular/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-route.js"></script>
 
 <!-- Custom Scripts -->
 <script src="app.js"></script>
