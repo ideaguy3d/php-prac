@@ -21,8 +21,22 @@
 
             jDataService.getCountries.then(function (res) {
                 vm.countries = res.data;
-                console.log(res.data);
-            })
+            });
+        }
+    ]);
+
+    app.controller('StateCtrl', [
+        function() {
+            var vm = this;
+
+            vm.addStateTo = function(country) {
+                if(!country.states) {
+                    country.states = [];
+                }
+
+                country.states.push({name: vm.newState});
+                vm.newState = '';
+            }
         }
     ]);
 }());

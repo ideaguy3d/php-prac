@@ -8,7 +8,7 @@
 require '../classes/CountryRepository.php';
 
 header('Content-type: application/json');
-// echo ")]}'\n";
+echo ")]}'\n"; // to prevent json hijacking.
 
 $countries = CountryRepository::getCountries();
 
