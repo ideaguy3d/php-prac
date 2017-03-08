@@ -20,7 +20,6 @@ $databaseName = 'alphacrm';
 
 $link = mysqli_connect($hostname, $username, $password, $databaseName);
 
-
 if (mysqli_connect_error()) {
     echo 'database connection failed';
     die ('<br><br> Failed to connect to remote MySQL database');
