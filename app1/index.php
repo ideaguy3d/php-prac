@@ -6,10 +6,16 @@
  * Time: 10:00 PM
  */
 
+require 'database/QueryBuilder.php';
+
 try {
     $queries = new QueryBuilder();
 } catch ( Exception $e) {
-    die ('there was an error connecting to the database');
+    // die ('there was an error connecting to the database');
+    echo ('there was an error connecting to the database');
 }
 
-require 'index.view.php';
+require 'index.view.html';
+
+
+//

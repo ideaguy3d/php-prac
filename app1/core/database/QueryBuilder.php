@@ -11,9 +11,9 @@ class QueryBuilder {
     protected $jUserName;
     protected $jPassword;
     protected $jDatabase;
-    protected $link;
+    protected $link = '';
 
-    public function __construct($hostname, $username, $password, $database) {
+    public function __construct($hostname = '', $username = '', $password = '', $database = '') {
         $this->jHostName = $hostname;
         $this->jUserName = $username;
         $this->jPassword = $password;

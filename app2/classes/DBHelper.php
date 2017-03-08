@@ -18,7 +18,7 @@ class DBHelper
             code VARCHAR (10) PRIMARY KEY)
         ');
 
-        DBClass::execute('create table states (name VARCHAR (50), code VARCHAR (10))')
+        DBClass::execute('create table states (name VARCHAR (50), code VARCHAR (10))');
     }
 }
 
