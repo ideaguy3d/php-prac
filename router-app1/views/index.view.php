@@ -23,7 +23,7 @@
 
 <section class="container">
     <h1>Ello There :)</h1>
-    <h2>Tis is the index.view file ^_^</h2>
+    <h2>This is the index.view file ^_^</h2>
 </section>
 
 </body>

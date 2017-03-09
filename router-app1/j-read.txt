@@ -1,0 +1,6 @@
+was trying to make a simple php mvc framework with routing 
+with this project. 
+
+
+
+//
