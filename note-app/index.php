@@ -1,6 +1,14 @@
 <?php
+session_start();
 $error = '';
 
+if (array_key_exists("logout", $_GET)) {
+    unset($_SESSION);
+    setcookie('id', '', time() - 60 * 60);
+    $_COOKIE['id'] = '';
+} else if (array_key_exists('id', $_SESSION) OR array_key_exists('id', $_COOKIE)) {
+    header('Location: logged-in-page.php');
+}
 
 if (array_key_exists('email', $_POST)) {
     $link = mysqli_connect('127.0.0.1', 'root', '', 'users');
@@ -14,7 +22,7 @@ if (array_key_exists('email', $_POST)) {
     }
     if ($error != '') {
         $error = '<p>There were errors: </p>' . $error;
-    } else {
+    } else { // there were no error signing up
         $email = mysqli_real_escape_string($link, $_POST['email']);
         $password = mysqli_real_escape_string($link, $_POST['password']);
         $query = "select `id` from `users` where email = '$email' limit 1";
@@ -27,7 +35,16 @@ if (array_key_exists('email', $_POST)) {
             if (!mysqli_query($link, $query)) {
                 $error .= 'Error signing you up. Please try again.';
             } else {
-                echo 'Successful signing you up.';
+                $recentId = mysqli_insert_id($link); // gets id of most recently inserted record
+                $hashedPassword = md5(md5(mysqli_insert_id($link)) . $_POST['password']);
+                $query = 'update users set password = "$hashedPassword" where id = "$recentId" limit 1';
+                mysqli_query($link, $query);
+                $_SESSION['id'] = $recentId;
+                if ($_POST['stayLoggedIn'] == '1') {
+                    setcookie("id", $recentId, time() + 60 * 60 * 24);
+                }
+                //logged-in-page.php
+                header('Location: logged-in-page.php');
             }
         }
     }
@@ -61,19 +78,29 @@ if (array_key_exists('email', $_POST)) {
 </head>
 
 <body>
+<br>
+<hr>
 <section class="container">
-    <h1>Sign up</h1>
+    <h1>Sign up or Login Now</h1>
     <div id="error"><?= $error; ?></div>
-    <!-- html coding begin: -->
+    <!-- Sign up section: -->
     <form action="" method="post">
         <input id="email" type="email" name="email" placeholder="email">
-
         <input id="password" type="password" name="password" placeholder="password">
-
         <label for="stayLoggedIn">Stay logged in?</label>
-        <input id="stayLoggedIn" type="checkbox" name="stayLoggedIn" value="1">
-
-        <input type="submit" name="submit" class="btn btn-primary" value="Sign in">
+        <input id="stayLoggedIn" type="checkbox" name="stayLoggedIn" value=1>
+        <input type="hidden" name="signUp" value="1">
+        <input type="submit" name="submit" class="btn btn-primary" value="Sign Up">
+    </form>
+    <br>
+    <!-- Login in section: -->
+    <form action="" method="post">
+        <input id="email" type="email" name="email" placeholder="email">
+        <input id="password" type="password" name="password" placeholder="password">
+        <label for="stayLoggedIn">Stay logged in?</label>
+        <input id="stayLoggedIn" type="checkbox" name="stayLoggedIn" value=1>
+        <input type="hidden" name="signUp" value="0">
+        <input type="submit" name="submit" class="btn btn-primary" value="Login">
     </form>
 </section>
 </body>
