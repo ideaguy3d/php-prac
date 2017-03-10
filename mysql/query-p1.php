@@ -51,7 +51,6 @@ $query = "select Skills from $table where Skills like '%a%' and id < 10";
 
 if ($result = mysqli_query($link, $query)) {
     // $row = mysqli_fetch_array($result)
-
     while ($row = mysqli_fetch_array($result)) {
         print_r($row);
     }
