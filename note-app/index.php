@@ -22,7 +22,9 @@ if (array_key_exists('email', $_POST)) {
     }
     if ($error != '') {
         $error = '<p>There were errors: </p>' . $error;
-    } else { // there were no error signing up
+    } else { // there were no errors signing up
+        if($_POST['signUp'] == '1') { // user is signing up
+        #region //-- signing up code:
         $email = mysqli_real_escape_string($link, $_POST['email']);
         $password = mysqli_real_escape_string($link, $_POST['password']);
         $query = "select `id` from `users` where email = '$email' limit 1";
@@ -45,6 +47,24 @@ if (array_key_exists('email', $_POST)) {
                 }
                 //logged-in-page.php
                 header('Location: logged-in-page.php');
+            }
+        }
+        #endregion
+        } else {
+            $email = mysqli_real_escape_string($link, $_POST['email']);
+            $query = 'select * from users where email="$email" limit 1';
+            $result = mysqli_query($link, $query);
+            $row = mysqli_fetch_array($result);
+            if(array_key_exists('id', $row)) {
+                $hashedPassword = md5(md5($row['id']).$_POST['password']);
+                if($hashedPassword == $row['password']) {
+                    $_SESSION['id'] = $row['id'];
+                    if($_POST['stayLoggedIn'] == '1') {
+                        setcookie('id', $row['id'], time() * 60 * 60));
+                    }
+                } else {
+                    echo 'jha - passwords did not match';
+                }
             }
         }
     }
@@ -94,7 +114,7 @@ if (array_key_exists('email', $_POST)) {
     </form>
     <br>
     <!-- Login in section: -->
-    <form action="" method="post">
+    <form method="post">
         <input id="email" type="email" name="email" placeholder="email">
         <input id="password" type="password" name="password" placeholder="password">
         <label for="stayLoggedIn">Stay logged in?</label>
