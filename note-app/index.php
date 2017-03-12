@@ -13,8 +13,7 @@ if (array_key_exists("logout", $_GET)) {
 }
 
 if (array_key_exists('email', $_POST)) {
-    $link = mysqli_connect('127.0.0.1', 'root', '', 'users');
-    if (mysqli_connect_error()) die ('There has been a Database connection error :(');
+    include ('connection.php');
 
     if (!$_POST['email']) {
         $error .= 'Email is required<b>';
@@ -78,54 +77,12 @@ if (array_key_exists('email', $_POST)) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php include('header.php') ?>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
-    <style>
-        html {
-            background: url(bg1280.jpg) no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        body {
-            background: none;
-            color: whitesmoke;
-        }
-
-        .jcol {
-            float: left;
-            width: 50%;
-        }
-
-        .btn {
-            cursor: pointer;
-        }
-
-        #error {
-            color: indianred;
-        }
-
-        .display {
-            display: none;
-        }
-    </style>
-</head>
-
-<body>
-<br>
-<hr>
 <section class="container">
     <div class="text-center">
         <h1>Note Taking Application</h1>
-        <h5>The internets best note taking app. Give it a try and Find out for yourself!</h5>
+        <h5><i>The internets best note taking app. Give it a try and Find out for yourself!</i></h5>
     </div>
     <div id="error"><?= $error; ?></div>
     <!-- Sign up form: -->
@@ -169,28 +126,7 @@ if (array_key_exists('email', $_POST)) {
     </form>
 </section>
 
-<!-- jQuery first, then Tether, then Bootstrap JS. -->
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-        crossorigin="anonymous"></script>
-<script type="text/javascript">
-    (function ($) {
-        $('.switch-form').click(function () {
-            $('#signup-form').toggle('display');
-            $('#login-form').toggle('display');
-        });
-    }(jQuery));
-</script>
-</body>
-</html>
-
-
-
+<?php include('footer.php') ?>
+<?php include('doc-close.php') ?>
 
 

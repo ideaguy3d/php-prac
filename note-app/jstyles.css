@@ -1,0 +1,29 @@
+html {
+    background: url(bg1280.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+body {
+    background: none;
+    color: whitesmoke;
+}
+.jcol {
+    float: left;
+    width: 50%;
+}
+.btn {
+    cursor: pointer;
+}
+#error {
+    color: indianred;
+}
+.display {
+    display: none;
+}
+textarea#notes {
+    background: rgba(255,255,255, 0.6);
+}
+h5>i {
+    font-weight: 300;
+}
+
+/* end of my css file */

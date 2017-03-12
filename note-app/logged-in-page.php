@@ -8,17 +8,31 @@
 
 session_start();
 
-if(array_key_exists("id", $_COOKIE)) {
+if (array_key_exists("id", $_COOKIE)) {
     $_SESSION['id'] = $_COOKIE['id'];
 }
 
-if(array_key_exists("id", $_SESSION)) {
+if (array_key_exists("id", $_SESSION)) {
     echo "<p>Logged in! <a href='index.php?logout=1'>Logout</a></p>";
 } else {
     header("Location: index.php");
     // echo 'You are not supposed to be here';
 }
 
+include('header.php');
+?>
+
+<div class="container" data-ng-controller="CoreCtrl as coreCtrl">
+    <h1 class="text-center">Take some notes:</h1>
+    <h6 class="text-center">Did you know 2+2*4/16+32.5-35 = {{ 2+2*4/16+32.5-35 }} ?</h6>
+    <textarea name="notes" id="notes" class="form-control" cols="15" rows="20"
+              ng-model="coreCtrl.notes">
+    </textarea>
+</div>
 
 
-//
+<?php include('footer.php'); ?>
+<?php include('angular-app.php') ?>
+<?php include('doc-close.php') ?>
+
+
