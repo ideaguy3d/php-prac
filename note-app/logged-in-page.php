@@ -8,12 +8,18 @@
 
 session_start();
 
-if (array_key_exists("id", $_COOKIE)) {
+if (array_key_exists("id", $_COOKIE) && $_COOKIE['id']) {
     $_SESSION['id'] = $_COOKIE['id'];
 }
 
-if (array_key_exists("id", $_SESSION)) {
-    echo "<p>Logged in! <a href='index.php?logout=1'>Logout</a></p>";
+if (array_key_exists("id", $_SESSION) && $_SESSION['id']) {
+    echo "<p>Logged in! <a class='btn btn-sm btn-info' href='index.php?logout=1'>Logout</a></p>";
+    include('connection.php');
+    $jSessionId = mysqli_real_escape_string($link, $_SESSION['id']);
+    $email = 'user1@mail.com';
+    $query = 'select notes from users where email="' . $email . '" limit 1';
+    $row = mysqli_fetch_array(mysqli_query($link, $query));
+    $notesContent = $row['notes'];
 } else {
     header("Location: index.php");
     // echo 'You are not supposed to be here';
@@ -27,6 +33,7 @@ include('header.php');
     <h6 class="text-center">Did you know 2+2*4/16+32.5-35 = {{ 2+2*4/16+32.5-35 }} ?</h6>
     <textarea name="notes" id="notes" class="form-control" cols="15" rows="20"
               ng-model="coreCtrl.notes">
+
     </textarea>
 </div>
 
