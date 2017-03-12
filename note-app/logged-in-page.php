@@ -13,7 +13,6 @@ if (array_key_exists("id", $_COOKIE) && $_COOKIE['id']) {
 }
 
 if (array_key_exists("id", $_SESSION) && $_SESSION['id']) {
-    echo "<p>Logged in! <a class='btn btn-sm btn-info' href='index.php?logout=1'>Logout</a></p>";
     include('connection.php');
     $jSessionId = mysqli_real_escape_string($link, $_SESSION['id']);
     $email = 'user1@mail.com';
@@ -27,13 +26,12 @@ if (array_key_exists("id", $_SESSION) && $_SESSION['id']) {
 
 include('header.php');
 ?>
-
+<br>
 <div class="container" data-ng-controller="CoreCtrl as coreCtrl">
     <h1 class="text-center">Take some notes:</h1>
-    <h6 class="text-center">Did you know 2+2*4/16+32.5-35 = {{ 2+2*4/16+32.5-35 }} ?</h6>
+    <h6 class="text-center">Did you know 2+2*4/16+32.5 = {{ 2+2*4/16+32.5 }} ?</h6>
     <textarea name="notes" id="notes" class="form-control" cols="15" rows="20"
               ng-model="coreCtrl.notes">
-
     </textarea>
 </div>
 
